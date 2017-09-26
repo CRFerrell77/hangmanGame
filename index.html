@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Hangman Game: Sci-Fi Ships edition!</title>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+    <!-- Added link to the jQuery Library -->   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+	<!-- Linking CSS -->
+	<link rel="stylesheet" type="text/css" 	href="assets\css\style.css">
+		
+</head>
+
+<body>
+
+    <header>
+        
+        <div class="container text-center  boxOutline">
+            <div class="row"></div> <!-- image of game title -->
+            <div class="row"> <!-- press spacebar to begin -->
+                <h1>press <button id="beginGame">START</button> to begin!</h1>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="jumbotron">
+
+        <div class="container">
+
+            <div class="row">
+                
+                <div class="col-md-3 boxOutline">
+
+                    <p>Sci-Fi Vehicles Hangman!!!</p>
+                    
+                    <div class="row boxOutline">
+                        <div class="col-md-8"><p>Guesses Taken: </p></div>
+                        <div class="col-md-4" id="guessBox"></div>
+                    </div>
+
+                    <div class="row boxOutline">
+                        <div class="col-md-8"><p>Guesses Left: </p></div>
+                        <div class="col-md-4" id="guessLeftBox"></div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-9 boxOutline">
+                    <div class="row boxOutline" >
+                        <div class="col-md-4">
+                            <h3>Wins:</h3>
+                        </div>
+                        <div class="col-md-2" id="winsBox"></div>
+                        <div class="col-md-4">
+                            <h3>Losses:</h3>
+                        </div>
+                        <div class="col-md-2" id="loseBox"></div>
+                    </div>
+                    <div class="row boxOutline" id="thisRndDiv">
+                        <h3>Blank Spaces:</h3>
+                        <!-- need to hide the info with dashes still -->
+                    </div>
+                    <div class="row boxOutline">
+                        <p>letters left available to guess</p>
+                        <button id="aClk"><span>A</span></button>
+                        <button id="bClk"><span>B</span></button> 
+                        <button id="cClk"><span>C</span></button>
+                        <button id="dClk"><span>D</span></button>
+                        <button id="eClk"><span>E</span></button>
+                        <button id="fClk"><span>F</span></button>
+                        <button id="gClk"><span>G</span></button>
+                        <button id="hClk"><span>H</span></button>                        
+                        <button id="iClk"><span>I</span></button>
+                        <button id="jClk"><span>J</span></button>
+                        <button id="kClk"><span>K</span></button>
+                        <button id="lClk"><span>L</span></button>
+                        <button id="mClk"><span>M</span></button>
+                        <button id="nClk"><span>N</span></button>
+                        <button id="oClk"><span>O</span></button> 
+                        <button id="pClk"><span>P</span></button>
+                        <button id="qClk"><span>Q</span></button>
+                        <button id="rClk"><span>R</span></button>
+                        <button id="sClk"><span>S</span></button>
+                        <button id="tClk"><span>T</span></button>
+                        <button id="uClk"><span>U</span></button>                        
+                        <button id="vClk"><span>V</span></button>
+                        <button id="wClk"><span>W</span></button>
+                        <button id="xClk"><span>X</span></button>
+                        <button id="yClk"><span>Y</span></button>
+                        <button id="zClk"><span>Z</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="assets\javascript\game.js"></script>
+
+</body>
+
+<!-- onstart:
+pick a string from the array - should ships be 
+find length of array
+assign a blank for each position
+pick each individual character from the string
+populate that spot
+populate guess board with blank buttons based on array length
+
+Guess Buttons:
+on click they should compare to the "board" and dissappear.
+
+if guesses = 3, 4, 5 then populate another hint
+hint should be a second array based on ship name -->
