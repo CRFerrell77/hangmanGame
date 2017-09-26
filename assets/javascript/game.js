@@ -12,14 +12,14 @@ document.getElementById("loseBox").innerHTML = losses;
 
 // all the ships in an array
 var shipList = [ 
-    "enterprise",
-    "serenity",
-    "millenium falcon",
-    "tardis",
-    "delorian",
-    "bird of prey",
-    "voltron",
-    "xwing"
+    // "enterprise",
+    // "serenity",
+    // "millenium falcon",
+    // "tardis",
+    // "delorian",
+    // "bird of prey",
+    // "voltron",
+    "x wing"
 ];
 
 document.getElementById("beginGame").addEventListener("click", gameStart);
@@ -59,6 +59,13 @@ function gameStart() {
 // DOUBLE "O" DOES NOT SHOW UP
 // LOSS COUNTER NOT WORKING
 
+//'space'
+    for (i = 0; i < shipChopped.length; i++) {
+        if (shipChopped[i] == " ") {
+            document.getElementById(" ").innerHTML = shipChopped[i];
+        }
+    }
+
 //A
     document.getElementById("aClk").addEventListener("click", guessA);
     
@@ -88,7 +95,9 @@ function gameStart() {
                 alert("Game Over, Man! Game Over!");
                 losses++;
             }
-    
+        
+        document.getElementById("aClk").style.visibility="hidden";
+            
         }
 //B
     document.getElementById("bClk").addEventListener("click", guessB);
@@ -119,7 +128,9 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
-
+        
+    document.getElementById("bClk").style.visibility="hidden";
+        
     }
         
 //C
@@ -152,6 +163,8 @@ function gameStart() {
             losses++;
         }
 
+    document.getElementById("cClk").style.visibility="hidden";
+    
     }
 
 //D
@@ -183,7 +196,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
-
+        document.getElementById("dClk").style.visibility="hidden";
+        
     }
 
 //E
@@ -216,6 +230,8 @@ function gameStart() {
             losses++;
         }
 
+    document.getElementById("eClk").style.visibility="hidden";
+        
     }
 
 //F
@@ -248,6 +264,8 @@ function gameStart() {
             losses++;
         }
 
+    document.getElementById("fClk").style.visibility="hidden";
+        
     }
 
 //G
@@ -280,6 +298,8 @@ function gameStart() {
             losses++;
         }
 
+    document.getElementById("gClk").style.visibility="hidden";
+        
     }
 
 //H
@@ -311,6 +331,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("hClk").style.visibility="hidden";
 
     }
 
@@ -344,8 +366,9 @@ function gameStart() {
             losses++;
         }
 
-    }
+    document.getElementById("iClk").style.visibility="hidden";
 
+    }
 
 //J
     document.getElementById("jClk").addEventListener("click", guessJ);
@@ -376,6 +399,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("jClk").style.visibility="hidden";
 
     }
 
@@ -409,6 +434,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("kClk").style.visibility="hidden";
     }
 
 //L
@@ -441,6 +467,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("lClk").style.visibility="hidden";
     }
 
 //M
@@ -473,6 +500,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("mClk").style.visibility="hidden";
     }
 
 //N
@@ -505,6 +533,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("nClk").style.visibility="hidden";
     }
 
 //O
@@ -537,6 +566,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("oClk").style.visibility="hidden";
     }
 
 //P
@@ -569,6 +599,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("pClk").style.visibility="hidden";
     }
 
 //Q
@@ -600,6 +631,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("qClk").style.visibility="hidden";
 
     }
 
@@ -633,6 +666,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("rClk").style.visibility="hidden";
     }
 
 //S
@@ -665,6 +699,7 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("sClk").style.visibility="hidden";
     }
 
 //T
@@ -696,6 +731,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("tClk").style.visibility="hidden";
 
     }
 
@@ -729,6 +766,8 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("uClk").style.visibility="hidden";
+
     }
 
 //V
@@ -760,6 +799,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("vClk").style.visibility="hidden";
 
     }
 
@@ -793,6 +834,8 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("wClk").style.visibility="hidden";
+
     }
 
 //X
@@ -824,6 +867,8 @@ function gameStart() {
             alert("Game Over, Man! Game Over!");
             losses++;
         }
+
+        document.getElementById("xClk").style.visibility="hidden";
 
     }
 
@@ -857,6 +902,8 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("yClk").style.visibility="hidden";
+
     }
 
 //Z
@@ -889,9 +936,11 @@ function gameStart() {
             losses++;
         }
 
+        document.getElementById("zClk").style.visibility="hidden";
+
     }
 
-//'space'
+
 
 
 
