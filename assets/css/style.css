@@ -1,13 +1,33 @@
 .boxOutline {
     border-width: 2px;
     border-style: solid;
-    border-color: orangered;
+    border-color: #7DDA21;
     text-align: center;
 }
 
-button {
-
-
+body {
+    background-color: black;
+    color: #7DDA21;
+    font-family: 'Geo', sans-serif;
 
 }
 
+button {
+    background-color: black;
+}
+
+.shipBtns, .guessBtn {
+    border: 2px solid #7DDA21;
+}
+
+#thisRndDiv, #ltrBx {
+    padding-bottom: 30px;
+}
+
+#guessBox, #guessLeftBox, #winsBox, #loseBox {
+    font-size: 50px;
+}
+
+#resetBtn {
+    font-size: 150%;
+}

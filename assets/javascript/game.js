@@ -10,6 +10,12 @@ document.getElementById("winsBox").innerHTML = wins;
 var losses = 0;
 document.getElementById("loseBox").innerHTML = losses;
 
+var winner = 0;
+
+var ltr = "";
+
+var shChLn = 0;
+
 // all the ships in an array
 var shipList = [ 
     "enterprise",
@@ -25,7 +31,7 @@ var shipList = [
     "light cycle",
     "pod racer",
     "nautilus",
-    "battlestart galactica",
+    "battlestar galactica",
     "planet express",
     "landspeeder",
     "heart of gold",
@@ -52,6 +58,8 @@ function gameStart() {
     //shipChopped is the Array for the letters
     var shipChopped = thisRndShip.split("");
     
+    var shChLn = shipChopped.length;
+
     for (i = 0; i < shipChopped.length; i++) {
 
         //console.log(thisRndDiv);
@@ -60,27 +68,74 @@ function gameStart() {
         btn.appendChild(t);
         document.body.appendChild(btn);    
         btn.setAttribute("ID", i + shipChopped[i]);
+        btn.setAttribute("CLASS", "btn btn-lg shipBtns");
         document.getElementById("thisRndDiv").appendChild(btn);
         }
     
     console.log(thisRndDiv);
     console.log(shipChopped);
+
+//Reset DOES NOT WORK
+    document.getElementById("resetBtn").addEventListener("click", gameReset);
+    
+        function gameReset() {
+            
+            console.log("loop removal count: " + shChLn); //how many childnren to remove
+            for (i = 0; i < shChLn; i++) { 
+                var list = document.getElementById("thisRndDiv"); //turn list into the DOM
+                list.removeChild(list.childNodes[i]);   //remove children/elements one at a time
+            };
+            // this only partially works. I keep getting errors at random points: "Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not a type of 'Node'" - it would make more sense if the error occured on the same number each time.
+                                
+            var guesses = 0;
+            document.getElementById("guessBox").innerHTML = guesses;
+            
+            var guessLeft = 7;
+            document.getElementById("guessLeftBox").innerHTML = guessLeft;
+            
+            var winner = 0;
+            
+            var ltr = "";
+    
+            var thisRndShip = "";
+    
+            var randomShip = 0;
+    
+            var shipChopped = "";
+    
+        };
     
 //'space'
     for (i = 0; i < shipChopped.length; i++) {
         if (shipChopped[i] == " ") {
             document.getElementById(i+" ").innerHTML = shipChopped[i];
+            //update number needed to win
+            winner++;
+            console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
         };
     };
+
+
+    //Being my not-working event listener basics for all buttons as opposed to each one listed separatly 
+
+    // document.body.addEventListener("click", function(event) {
+    //     if (event.target.nodeName == "BUTTON")
+    //         console.log("Clicked", event.target.textContent);
+    //         console.log(event.target.id);
+    //         var ltr = "";
+    //         ltr = event.target.id;
+    //         console.log(ltr + )
+    //   });
+    
+
 //A
-    document.getElementById("aClk").addEventListener("click", guessA);
+    document.getElementById("a").addEventListener("click", guessA);
     
         function guessA() {
             // need to compare the click action to the chopped-ship array
             var ifClicked = "a"
-            // console.log(guesses);
+
             guesses++;
-            // console.log(guesses);        
             document.getElementById("guessBox").innerHTML = guesses;
              
             var found = false;
@@ -89,14 +144,24 @@ function gameStart() {
                 if (ifClicked == shipChopped[i]) {
                     //show "-a-" in console
                     console.log("-a-");
+                    //update number needed to win
+                    winner++;
+                    console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                     //change the inside HTML of the button to show the letter
                     document.getElementById(i+"a").innerHTML = shipChopped[i];
-                    //un-modify guesses remaining for correct answer
-                    
+                    //mark as found for guess counter
                     found = true; 
                 };
             };
-        
+
+            //winner checker
+            if (winner == shipChopped.length) {
+                alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+                wins++;
+                console.log("wins: " + wins);
+                document.getElementById("winsBox").innerHTML = wins;
+                };
+
             //found checker
             if (!found) {
                 guessLeft = (guessLeft - 1);
@@ -109,114 +174,141 @@ function gameStart() {
                 };
             };
         
-        document.getElementById("aClk").style.visibility="hidden";
+        document.getElementById("a").style.visibility="hidden";
             
         };
+
 //B
-    document.getElementById("bClk").addEventListener("click", guessB);
+    document.getElementById("b").addEventListener("click", guessB);
 
-        function guessB() {
-            // need to compare the click action to the chopped-ship array
-            var ifClicked = "b"
-            // console.log(guesses);
-            guesses++;
-            // console.log(guesses);        
-            document.getElementById("guessBox").innerHTML = guesses;
-            
-            var found = false;
+    function guessB() {
+        // need to compare the click action to the chopped-ship array
+        var ifClicked = "b"
 
-            for (i = 0; i < shipChopped.length; i++) {
-                if (ifClicked == shipChopped[i]) {
-                    //show "-a-" in console
-                    console.log("-b-");
-                    //change the inside HTML of the button to show the letter
-                    document.getElementById(i+"b").innerHTML = shipChopped[i];
-                    //un-modify guesses remaining for correct answer
-                    
-                    found = true; 
-                };
+        guesses++;
+        document.getElementById("guessBox").innerHTML = guesses;
+         
+        var found = false;
+
+        for (i = 0; i < shipChopped.length; i++) {
+            if (ifClicked == shipChopped[i]) {
+                //show "-a-" in console
+                console.log("-b-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
+                //change the inside HTML of the button to show the letter
+                document.getElementById(i+"b").innerHTML = shipChopped[i];
+                //mark as found for guess counter
+                found = true; 
             };
-        
-            //found checker
-            if (!found) {
-                guessLeft = (guessLeft - 1);
-                document.getElementById("guessLeftBox").innerHTML = guessLeft;
-
-                if (guessLeft == 0) {
-                    alert("Game Over, Man! Game Over!");
-                    losses++;
-                    document.getElementById("loseBox").innerHTML = losses;
-                };
-            };
-        
-        document.getElementById("bClk").style.visibility="hidden";
-            
         };
-//C
-    document.getElementById("cClk").addEventListener("click", guessC);
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
+        //found checker
+        if (!found) {
+            guessLeft = (guessLeft - 1);
+            document.getElementById("guessLeftBox").innerHTML = guessLeft;
+
+            if (guessLeft == 0) {
+                alert("Game Over, Man! Game Over!");
+                losses++;
+                document.getElementById("loseBox").innerHTML = losses;
+            };
+        };
     
-        function guessC() {
-            // need to compare the click action to the chopped-ship array
-            var ifClicked = "c"
-            // console.log(guesses);
-            guesses++;
-            // console.log(guesses);        
-            document.getElementById("guessBox").innerHTML = guesses;
-             
-            var found = false;
-
-            for (i = 0; i < shipChopped.length; i++) {
-                if (ifClicked == shipChopped[i]) {
-                    //show "-a-" in console
-                    console.log("-c-");
-                    //change the inside HTML of the button to show the letter
-                    document.getElementById(i+"c").innerHTML = shipChopped[i];
-                    //un-modify guesses remaining for correct answer
-                    
-                    found = true; 
-                };
-            };
+    document.getElementById("b").style.visibility="hidden";
         
-            //found checker
-            if (!found) {
-                guessLeft = (guessLeft - 1);
-                document.getElementById("guessLeftBox").innerHTML = guessLeft;
+    };
 
-                if (guessLeft == 0) {
-                    alert("Game Over, Man! Game Over!");
-                    losses++;
-                    document.getElementById("loseBox").innerHTML = losses;
-                };
+//C
+    document.getElementById("c").addEventListener("click", guessC);
+
+    function guessC() {
+        // need to compare the click action to the chopped-ship array
+        var ifClicked = "c"
+
+        guesses++;
+        document.getElementById("guessBox").innerHTML = guesses;
+         
+        var found = false;
+
+        for (i = 0; i < shipChopped.length; i++) {
+            if (ifClicked == shipChopped[i]) {
+                //show "-a-" in console
+                console.log("-c-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
+                //change the inside HTML of the button to show the letter
+                document.getElementById(i+"c").innerHTML = shipChopped[i];
+                //mark as found for guess counter
+                found = true; 
             };
-        
-        document.getElementById("cClk").style.visibility="hidden";
-            
         };
-//D
-    document.getElementById("dClk").addEventListener("click", guessD);
 
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
+        //found checker
+        if (!found) {
+            guessLeft = (guessLeft - 1);
+            document.getElementById("guessLeftBox").innerHTML = guessLeft;
+
+            if (guessLeft == 0) {
+                alert("Game Over, Man! Game Over!");
+                losses++;
+                document.getElementById("loseBox").innerHTML = losses;
+            };
+        };
+    
+    document.getElementById("c").style.visibility="hidden";
+        
+    };
+
+//D    
+    document.getElementById("d").addEventListener("click", guessD);
+        
     function guessD() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "d"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
-         
+        
         var found = false;
 
         for (i = 0; i < shipChopped.length; i++) {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-d-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"d").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -228,20 +320,19 @@ function gameStart() {
                 document.getElementById("loseBox").innerHTML = losses;
             };
         };
-    
-    document.getElementById("dClk").style.visibility="hidden";
+
+    document.getElementById("d").style.visibility="hidden";
         
     };
 
 //E
-    document.getElementById("eClk").addEventListener("click", guessE);
+    document.getElementById("e").addEventListener("click", guessE);
 
     function guessE() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "e"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -249,15 +340,24 @@ function gameStart() {
         for (i = 0; i < shipChopped.length; i++) {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
-                console.log("-a-");
+                console.log("-e-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"e").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -270,59 +370,67 @@ function gameStart() {
             };
         };
     
-    document.getElementById("eClk").style.visibility="hidden";
+    document.getElementById("e").style.visibility="hidden";
         
     };
 
 //F
-    document.getElementById("fClk").addEventListener("click", guessF);
-    
-        function guessF() {
-            // need to compare the click action to the chopped-ship array
-            var ifClicked = "f"
-            // console.log(guesses);
-            guesses++;
-            // console.log(guesses);        
-            document.getElementById("guessBox").innerHTML = guesses;
-             
-            var found = false;
+    document.getElementById("f").addEventListener("click", guessF);
 
-            for (i = 0; i < shipChopped.length; i++) {
-                if (ifClicked == shipChopped[i]) {
-                    //show "-a-" in console
-                    console.log("-f-");
-                    //change the inside HTML of the button to show the letter
-                    document.getElementById(i+"f").innerHTML = shipChopped[i];
-                    //un-modify guesses remaining for correct answer
-                    
-                    found = true; 
-                };
-            };
-        
-            //found checker
-            if (!found) {
-                guessLeft = (guessLeft - 1);
-                document.getElementById("guessLeftBox").innerHTML = guessLeft;
+    function guessF() {
+        // need to compare the click action to the chopped-ship array
+        var ifClicked = "f"
 
-                if (guessLeft == 0) {
-                    alert("Game Over, Man! Game Over!");
-                    losses++;
-                    document.getElementById("loseBox").innerHTML = losses;
-                };
+        guesses++;
+        document.getElementById("guessBox").innerHTML = guesses;
+         
+        var found = false;
+
+        for (i = 0; i < shipChopped.length; i++) {
+            if (ifClicked == shipChopped[i]) {
+                //show "-a-" in console
+                console.log("-f-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
+                //change the inside HTML of the button to show the letter
+                document.getElementById(i+"f").innerHTML = shipChopped[i];
+                //mark as found for guess counter
+                found = true; 
             };
-        
-        document.getElementById("fClk").style.visibility="hidden";
-            
         };
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
+        //found checker
+        if (!found) {
+            guessLeft = (guessLeft - 1);
+            document.getElementById("guessLeftBox").innerHTML = guessLeft;
+
+            if (guessLeft == 0) {
+                alert("Game Over, Man! Game Over!");
+                losses++;
+                document.getElementById("loseBox").innerHTML = losses;
+            };
+        };
+    
+    document.getElementById("f").style.visibility="hidden";
+        
+    };
+
 //G
-    document.getElementById("gClk").addEventListener("click", guessG);
+    document.getElementById("g").addEventListener("click", guessG);
 
     function guessG() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "g"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -331,14 +439,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-g-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"g").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -351,19 +468,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("gClk").style.visibility="hidden";
+    document.getElementById("g").style.visibility="hidden";
         
     };
 
 //H
-    document.getElementById("hClk").addEventListener("click", guessH);
+    document.getElementById("h").addEventListener("click", guessH);
 
     function guessH() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "h"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -372,14 +488,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-h-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"h").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -392,59 +517,67 @@ function gameStart() {
             };
         };
     
-    document.getElementById("hClk").style.visibility="hidden";
+    document.getElementById("h").style.visibility="hidden";
         
     };
 
 //I
-    document.getElementById("iClk").addEventListener("click", guessI);
-    
-        function guessI() {
-            // need to compare the click action to the chopped-ship array
-            var ifClicked = "i"
-            // console.log(guesses);
-            guesses++;
-            // console.log(guesses);        
-            document.getElementById("guessBox").innerHTML = guesses;
-             
-            var found = false;
+    document.getElementById("i").addEventListener("click", guessI);
 
-            for (i = 0; i < shipChopped.length; i++) {
-                if (ifClicked == shipChopped[i]) {
-                    //show "-a-" in console
-                    console.log("-i-");
-                    //change the inside HTML of the button to show the letter
-                    document.getElementById(i+"i").innerHTML = shipChopped[i];
-                    //un-modify guesses remaining for correct answer
-                    
-                    found = true; 
-                };
-            };
-        
-            //found checker
-            if (!found) {
-                guessLeft = (guessLeft - 1);
-                document.getElementById("guessLeftBox").innerHTML = guessLeft;
+    function guessI() {
+        // need to compare the click action to the chopped-ship array
+        var ifClicked = "i"
 
-                if (guessLeft == 0) {
-                    alert("Game Over, Man! Game Over!");
-                    losses++;
-                    document.getElementById("loseBox").innerHTML = losses;
-                };
+        guesses++;
+        document.getElementById("guessBox").innerHTML = guesses;
+         
+        var found = false;
+
+        for (i = 0; i < shipChopped.length; i++) {
+            if (ifClicked == shipChopped[i]) {
+                //show "-a-" in console
+                console.log("-i-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
+                //change the inside HTML of the button to show the letter
+                document.getElementById(i+"i").innerHTML = shipChopped[i];
+                //mark as found for guess counter
+                found = true; 
             };
-        
-        document.getElementById("iClk").style.visibility="hidden";
-            
         };
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
+        //found checker
+        if (!found) {
+            guessLeft = (guessLeft - 1);
+            document.getElementById("guessLeftBox").innerHTML = guessLeft;
+
+            if (guessLeft == 0) {
+                alert("Game Over, Man! Game Over!");
+                losses++;
+                document.getElementById("loseBox").innerHTML = losses;
+            };
+        };
+    
+    document.getElementById("i").style.visibility="hidden";
+        
+    };
+
 //J
-    document.getElementById("jClk").addEventListener("click", guessJ);
+    document.getElementById("j").addEventListener("click", guessJ);
 
     function guessJ() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "j"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -453,14 +586,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-j-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"j").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -473,34 +615,43 @@ function gameStart() {
             };
         };
     
-    document.getElementById("jClk").style.visibility="hidden";
+    document.getElementById("j").style.visibility="hidden";
         
     };
-//K
-    document.getElementById("kClk").addEventListener("click", guessK);
 
+//K    
+    document.getElementById("k").addEventListener("click", guessK);
+    
     function guessK() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "k"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
-         
+        
         var found = false;
 
         for (i = 0; i < shipChopped.length; i++) {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-k-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"k").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -512,19 +663,19 @@ function gameStart() {
                 document.getElementById("loseBox").innerHTML = losses;
             };
         };
-    
-    document.getElementById("kClk").style.visibility="hidden";
+
+        document.getElementById("k").style.visibility="hidden";
         
     };
+
 //L
-    document.getElementById("lClk").addEventListener("click", guessL);
+    document.getElementById("l").addEventListener("click", guessL);
 
     function guessL() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "l"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -533,14 +684,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-l-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"l").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -553,18 +713,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("lClk").style.visibility="hidden";
+    document.getElementById("l").style.visibility="hidden";
         
     };
+
 //M
-    document.getElementById("mClk").addEventListener("click", guessM);
+    document.getElementById("m").addEventListener("click", guessM);
 
     function guessM() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "m"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -573,14 +733,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-m-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"m").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -593,18 +762,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("mClk").style.visibility="hidden";
+    document.getElementById("m").style.visibility="hidden";
         
     };
+
 //N
-    document.getElementById("nClk").addEventListener("click", guessN);
+    document.getElementById("n").addEventListener("click", guessN);
 
     function guessN() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "n"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -613,14 +782,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-n-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"n").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -633,18 +811,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("nClk").style.visibility="hidden";
+    document.getElementById("n").style.visibility="hidden";
         
     };
+
 //O
-    document.getElementById("oClk").addEventListener("click", guessO);
+    document.getElementById("o").addEventListener("click", guessO);
 
     function guessO() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "o"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -653,14 +831,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-o-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"o").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -673,18 +860,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("oClk").style.visibility="hidden";
+    document.getElementById("o").style.visibility="hidden";
         
     };
+
 //P
-    document.getElementById("pClk").addEventListener("click", guessP);
+    document.getElementById("p").addEventListener("click", guessP);
 
     function guessP() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "p"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -693,14 +880,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-p-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"p").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -713,18 +909,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("pClk").style.visibility="hidden";
+    document.getElementById("p").style.visibility="hidden";
         
     };
+
 //Q
-    document.getElementById("qClk").addEventListener("click", guessQ);
+    document.getElementById("q").addEventListener("click", guessQ);
 
     function guessQ() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "q"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -733,14 +929,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-q-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"q").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -753,18 +958,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("qClk").style.visibility="hidden";
+    document.getElementById("q").style.visibility="hidden";
         
     };
+
 //R
-    document.getElementById("rClk").addEventListener("click", guessR);
+    document.getElementById("r").addEventListener("click", guessR);
 
     function guessR() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "r"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -773,14 +978,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-r-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"r").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -793,18 +1007,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("rClk").style.visibility="hidden";
+    document.getElementById("r").style.visibility="hidden";
         
     };
+
 //S
-    document.getElementById("sClk").addEventListener("click", guessS);
+    document.getElementById("s").addEventListener("click", guessS);
 
     function guessS() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "s"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -813,14 +1027,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-s-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"s").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -833,18 +1056,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("sClk").style.visibility="hidden";
+    document.getElementById("s").style.visibility="hidden";
         
     };
+
 //T
-    document.getElementById("tClk").addEventListener("click", guessT);
+    document.getElementById("t").addEventListener("click", guessT);
 
     function guessT() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "t"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -853,14 +1076,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-t-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"t").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -873,18 +1105,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("tClk").style.visibility="hidden";
+    document.getElementById("t").style.visibility="hidden";
         
     };
+
 //U
-    document.getElementById("uClk").addEventListener("click", guessU);
+    document.getElementById("u").addEventListener("click", guessU);
 
     function guessU() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "u"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -893,14 +1125,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-u-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"u").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -913,18 +1154,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("uClk").style.visibility="hidden";
+    document.getElementById("u").style.visibility="hidden";
         
     };
+
 //V
-    document.getElementById("vClk").addEventListener("click", guessV);
+    document.getElementById("v").addEventListener("click", guessV);
 
     function guessV() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "v"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -933,14 +1174,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-v-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"v").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -953,18 +1203,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("vClk").style.visibility="hidden";
+    document.getElementById("v").style.visibility="hidden";
         
     };
+
 //W
-    document.getElementById("wClk").addEventListener("click", guessW);
+    document.getElementById("w").addEventListener("click", guessW);
 
     function guessW() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "w"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -973,14 +1223,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-w-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"w").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -993,18 +1252,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("wClk").style.visibility="hidden";
+    document.getElementById("w").style.visibility="hidden";
         
     };
+
 //X
-    document.getElementById("xClk").addEventListener("click", guessX);
+    document.getElementById("x").addEventListener("click", guessX);
 
     function guessX() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "x"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -1013,14 +1272,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-x-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"x").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -1033,18 +1301,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("xClk").style.visibility="hidden";
+    document.getElementById("x").style.visibility="hidden";
         
     };
+
 //Y
-    document.getElementById("yClk").addEventListener("click", guessY);
+    document.getElementById("y").addEventListener("click", guessY);
 
     function guessY() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "y"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -1053,14 +1321,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-y-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"y").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -1073,18 +1350,18 @@ function gameStart() {
             };
         };
     
-    document.getElementById("yClk").style.visibility="hidden";
+    document.getElementById("y").style.visibility="hidden";
         
     };
+
 //Z
-    document.getElementById("zClk").addEventListener("click", guessZ);
+    document.getElementById("z").addEventListener("click", guessZ);
 
     function guessZ() {
         // need to compare the click action to the chopped-ship array
         var ifClicked = "z"
-        // console.log(guesses);
+
         guesses++;
-        // console.log(guesses);        
         document.getElementById("guessBox").innerHTML = guesses;
          
         var found = false;
@@ -1093,14 +1370,23 @@ function gameStart() {
             if (ifClicked == shipChopped[i]) {
                 //show "-a-" in console
                 console.log("-z-");
+                //update number needed to win
+                winner++;
+                console.log("'winner' count: " + winner + " :: total needed to win: " + shipChopped.length);
                 //change the inside HTML of the button to show the letter
                 document.getElementById(i+"z").innerHTML = shipChopped[i];
-                //un-modify guesses remaining for correct answer
-                
+                //mark as found for guess counter
                 found = true; 
             };
         };
-    
+
+        //winner checker
+        if (winner == shipChopped.length) {
+            alert("Holy Mole Bees! You're a regular idiot savant! YOU WIN!");
+            wins++;
+            document.getElementById("winsBox").innerHTML = wins;
+            };
+
         //found checker
         if (!found) {
             guessLeft = (guessLeft - 1);
@@ -1113,18 +1399,9 @@ function gameStart() {
             };
         };
     
-    document.getElementById("zClk").style.visibility="hidden";
+    document.getElementById("z").style.visibility="hidden";
         
     };
-
-
-
-
-
-
-
-
-
 
 
 

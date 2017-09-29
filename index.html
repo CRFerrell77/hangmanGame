@@ -30,7 +30,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   
 	<!-- Linking CSS -->
-	<link rel="stylesheet" type="text/css" 	href="assets\css\style.css">
+    <link rel="stylesheet" type="text/css" 	href="assets\css\style.css">
+    
+    <!-- Linking google font -->
+    <link href="https://fonts.googleapis.com/css?family=Geo" rel="stylesheet">
 		
 </head>
 
@@ -47,7 +50,7 @@
 
     </header>
 
-    <div class="jumbotron">
+    <!-- <div class="jumbotron"> -->
 
         <div class="container">
 
@@ -55,16 +58,20 @@
                 
                 <div class="col-md-3 boxOutline">
 
-                    <p>Sci-Fi Vehicles Hangman!!!</p>
+                    <h2>Sci-Fi Vehicles Hangman!!!</h2>
                     
                     <div class="row boxOutline">
-                        <div class="col-md-8"><p>Guesses Taken: </p></div>
+                        <div class="col-md-8"><h3>Guesses Taken: </h3></div>
                         <div class="col-md-4" id="guessBox"></div>
                     </div>
 
                     <div class="row boxOutline">
-                        <div class="col-md-8"><p>Guesses Left: </p></div>
+                        <div class="col-md-8"><h3>Guesses Left: </h3></div>
                         <div class="col-md-4" id="guessLeftBox"></div>
+                    </div>
+
+                    <div class="row boxOutline">
+                        <button class="btn btn-lg" id="resetBtn">RESET</button>
                     </div>
 
                 </div>
@@ -83,40 +90,40 @@
                     <div class="row boxOutline" id="thisRndDiv">
                         <h3>Your Vehicle Awaits:</h3>
                     </div>
-                    <div class="row boxOutline">
-                        <p>letters left available to guess</p>
-                        <button id="aClk"><span>A</span></button>
-                        <button id="bClk"><span>B</span></button> 
-                        <button id="cClk"><span>C</span></button>
-                        <button id="dClk"><span>D</span></button>
-                        <button id="eClk"><span>E</span></button>
-                        <button id="fClk"><span>F</span></button>
-                        <button id="gClk"><span>G</span></button>
-                        <button id="hClk"><span>H</span></button>                        
-                        <button id="iClk"><span>I</span></button>
-                        <button id="jClk"><span>J</span></button>
-                        <button id="kClk"><span>K</span></button>
-                        <button id="lClk"><span>L</span></button>
-                        <button id="mClk"><span>M</span></button>
-                        <button id="nClk"><span>N</span></button>
-                        <button id="oClk"><span>O</span></button> 
-                        <button id="pClk"><span>P</span></button>
-                        <button id="qClk"><span>Q</span></button>
-                        <button id="rClk"><span>R</span></button>
-                        <button id="sClk"><span>S</span></button>
-                        <button id="tClk"><span>T</span></button>
-                        <button id="uClk"><span>U</span></button>                        
-                        <button id="vClk"><span>V</span></button>
-                        <button id="wClk"><span>W</span></button>
-                        <button id="xClk"><span>X</span></button>
-                        <button id="yClk"><span>Y</span></button>
-                        <button id="zClk"><span>Z</span></button>
+                    <div class="row boxOutline" id="ltrBx">
+                        <p>Try clicking a letter!</p>
+                            <button class="btn btn-lg guessBtn" id="a"><span>A</span></button>
+                            <button class="btn btn-lg guessBtn" id="b"><span>B</span></button> 
+                            <button class="btn btn-lg guessBtn" id="c"><span>C</span></button>
+                            <button class="btn btn-lg guessBtn" id="d"><span>D</span></button>
+                            <button class="btn btn-lg guessBtn" id="e"><span>E</span></button>
+                            <button class="btn btn-lg guessBtn" id="f"><span>F</span></button>
+                            <button class="btn btn-lg guessBtn" id="g"><span>G</span></button>
+                            <button class="btn btn-lg guessBtn" id="h"><span>H</span></button>                        
+                            <button class="btn btn-lg guessBtn" id="i"><span>I</span></button>
+                            <button class="btn btn-lg guessBtn" id="j"><span>J</span></button>
+                            <button class="btn btn-lg guessBtn" id="k"><span>K</span></button>
+                            <button class="btn btn-lg guessBtn" id="l"><span>L</span></button>
+                            <button class="btn btn-lg guessBtn" id="m"><span>M</span></button>
+                            <button class="btn btn-lg guessBtn" id="n"><span>N</span></button>
+                            <button class="btn btn-lg guessBtn" id="o"><span>O</span></button> 
+                            <button class="btn btn-lg guessBtn" id="p"><span>P</span></button>
+                            <button class="btn btn-lg guessBtn" id="q"><span>Q</span></button>
+                            <button class="btn btn-lg guessBtn" id="r"><span>R</span></button>
+                            <button class="btn btn-lg guessBtn" id="s"><span>S</span></button>
+                            <button class="btn btn-lg guessBtn" id="t"><span>T</span></button>
+                            <button class="btn btn-lg guessBtn" id="u"><span>U</span></button>                        
+                            <button class="btn btn-lg guessBtn" id="v"><span>V</span></button>
+                            <button class="btn btn-lg guessBtn" id="w"><span>W</span></button>
+                            <button class="btn btn-lg guessBtn" id="x"><span>X</span></button>
+                            <button class="btn btn-lg guessBtn" id="y"><span>Y</span></button>
+                            <button class="btn btn-lg guessBtn" id="z"><span>Z</span></button>
                     </div>
                 </div>
 
             </div>
         </div>
-    </div>
+    <!-- </div> -->
 
     <script type="text/javascript" src="assets\javascript\game.js"></script>
 
