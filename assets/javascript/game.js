@@ -38,6 +38,16 @@ var shipList = [
     "snowspeeder",
     "time machine",
     "bebop",
+    "protector",
+    "moonraker",
+    "hyperion",
+    "nemesis",
+    "promethius",
+    "icarus",
+    "macross",
+    "yamato",
+    "viper",
+    "nostromo",
     "death star"
 ];
 
@@ -80,13 +90,15 @@ function gameStart() {
     
         function gameReset() {
             
-            console.log("loop removal count: " + shChLn); //how many childnren to remove
-            for (i = 0; i < shChLn; i++) { 
-                var list = document.getElementById("thisRndDiv"); //turn list into the DOM
-                list.removeChild(list.childNodes[i]);   //remove children/elements one at a time
-            };
+            // console.log("loop removal count: " + shChLn); //how many childnren to remove
+            // for (i = 0; i < shChLn; i++) { 
+            //     var list = document.getElementById("thisRndDiv"); //turn list into the DOM
+            //     list.removeChild(list.childNodes[i]);   //remove children/elements one at a time
+            //};
             // this only partially works. I keep getting errors at random points: "Uncaught TypeError: Failed to execute 'removeChild' on 'Node': parameter 1 is not a type of 'Node'" - it would make more sense if the error occured on the same number each time.
                                 
+            document.getElementById("thisRndDiv").innerHTML = "";
+
             var guesses = 0;
             document.getElementById("guessBox").innerHTML = guesses;
             
